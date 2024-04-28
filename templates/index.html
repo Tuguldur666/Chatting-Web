@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+    {% if user.is_authenticated %}
+    <h1>Нүүр хуудас</h1>
+    <h1>Сайн байна уу {{user.username}}</h1>
+    
+    {% else %}
+    <h1>Нүүр хуудас</h1>
+    <h1>Сайн байна уу Guest</h1>
+    {% endif %}
+
+</div>
+{% endblock %}

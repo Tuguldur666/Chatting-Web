@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'index' %}">Нүүр</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    {% if not user.is_superuser %}
+                        {% if user.userprofile.user_pic %}
+                            <li class="nav-item">
+                                <a href="{% url 'user_details' %}">
+                                    <img src="{{ user.userprofile.user_pic.url }}" alt="User Image" style="height: 40px; width: 40px; border-radius: 50%; vertical-align: middle; margin-right: 15px;">
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'user_details' %}">User Detail</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Админ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Нүүр</a>
+                    </li>
+                    {% if default_room_id %}
+                    <a class="nav-link" href="{% url 'user_chat' room_id=default_room_id %}">Чат</a>
+                {% else %}
+                    <a class="nav-link" href="{% url 'start_user_chat' %}">Чатнууд</a>
+                {% endif %}
+                
+                {% if default_group_room_id %}
+                <a class="nav-link" href="{% url 'group_chat' room_id=default_group_room_id %}">Груп Чат</a>
+            {% else %}
+                <a class="nav-link" href="{% url 'create_group_chat' %}">Груп Чатнууд</a>
+            {% endif %}
+            
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Гарах</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Админ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Нүүр</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Нэвтрэх</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Бүртгүүлэх</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

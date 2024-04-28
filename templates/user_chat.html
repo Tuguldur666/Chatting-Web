@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Чат өрөө - {{ room.id }}</h2>
+    <div class="messages-box mb-3" style="height: 400px; overflow-y: scroll;">
+        {% for message in messages %}
+        <div class="message mb-2">
+            <strong>{{ message.sender.username }}:</strong> {{ message.message }}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="chat-form">
+        <form action="" method="post" class="input-group">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Type a message" class="form-control">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Илгээх</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

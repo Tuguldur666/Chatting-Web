@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="mt-4">
+  {% csrf_token %}
+  {% if form.instance.user_pic %}
+      <div class="mb-3">
+          <label for="current-profile-pic" class="form-label">Current Profile Picture</label>
+          <img src="{{ form.instance.user_pic.url }}" alt="Current Profile Picture" class="img-fluid profile-pic">
+      </div>
+  {% endif %}
+
+  <div class="mb-3">
+      {{ form.user_pic.label_tag }}
+      {{ form.user_pic }}
+  </div>
+
+  <div class="mb-3">
+      {{ form.bio.label_tag }}
+      {{ form.bio }}
+  </div>
+  <div class="mb-3">
+      {{ form.birth_date.label_tag }}
+      {{ form.birth_date }}
+  </div>
+  <div class="mb-3">
+      {{ form.user_social.label_tag }}
+      {{ form.user_social }}
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
